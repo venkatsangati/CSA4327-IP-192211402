@@ -1,0 +1,129 @@
+
+1.<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Change Text Style</title>
+<style>
+  #collegeInfo {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: black;
+  }
+</style>
+</head>
+<body>
+
+<form id="changeForm">
+  <input type="submit" value="Change" id="changeBtn">
+</form>
+
+<p id="collegeInfo">
+  Welcome to Our College! We offer a wide range of programs and opportunities for our students to excel in their academic and personal growth.
+</p>
+
+<script>
+  document.getElementById("changeForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent form submission
+    
+    // Change the style of the paragraph text
+    var collegeInfo = document.getElementById("collegeInfo");
+    collegeInfo.style.fontFamily = "Times New Roman, serif";
+    collegeInfo.style.fontSize = "20px";
+    collegeInfo.style.color = "blue";
+  });
+
+  var boldWords = document.getElementById("collegeInfo").innerText.match(/\b\w{6,}\b/g); // Find words with 6 or more characters
+  
+  boldWords.forEach(function(word) {
+    var regex = new RegExp(word, "g");
+    document.getElementById("collegeInfo").innerHTML = document.getElementById("collegeInfo").innerHTML.replace(regex, "<span onmouseover='this.style.fontWeight=\"bold\"' onmouseout='this.style.fontWeight=\"normal\"'>" + word + "</span>");
+  });
+</script>
+
+</body>
+</html>
+
+2.<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Append Image</title>
+</head>
+<body>
+
+<button id="appendImgBtn">Append Image</button>
+
+<script>
+  document.getElementById("appendImgBtn").addEventListener("click", function() {
+    // Create the <img> element
+    var imgElement = document.createElement("img");
+    imgElement.src = "path_to_your_image.jpg"; // Replace "path_to_your_image.jpg" with the actual path to your image
+    
+    // Append the <img> element to the document body
+    document.body.appendChild(imgElement);
+  });
+</script>
+
+</body>
+</html>
+
+3.<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>String Operations</title>
+</head>
+<body>
+
+<label for="inputStrings">Enter series of strings:</label><br>
+<textarea id="inputStrings" rows="4" cols="50"></textarea><br><br>
+
+<button onclick="processStrings()">Process Strings</button><br><br>
+
+<label for="outputStrings">Strings starting with 'b':</label><br>
+<textarea id="outputStrings" rows="4" cols="50"></textarea><br><br>
+
+<label for="letterOccurrences">Letter Occurrences:</label><br>
+<textarea id="letterOccurrences" rows="10" cols="50"></textarea><br><br>
+
+<script>
+function processStrings() {
+    var inputText = document.getElementById("inputStrings").value;
+    var inputLines = inputText.split('\n');
+    
+    var stringsStartingWithB = '';
+    var letterOccurrences = {};
+    
+    inputLines.forEach(function(line) {
+        if (line.trim().charAt(0).toLowerCase() === 'b') {
+            stringsStartingWithB += line.trim() + '\n';
+        }
+        
+        line.trim().split('').forEach(function(char) {
+            if (char.match(/[a-z]/i)) {
+                char = char.toLowerCase();
+                if (char in letterOccurrences) {
+                    letterOccurrences[char]++;
+                } else {
+                    letterOccurrences[char] = 1;
+                }
+            }
+        });
+    });
+    
+    document.getElementById("outputStrings").value = stringsStartingWithB;
+    
+    var letterOccurrenceText = '';
+    Object.keys(letterOccurrences).forEach(function(letter) {
+        letterOccurrenceText += letter + ': ' + letterOccurrences[letter] + '\n';
+    });
+    document.getElementById("letterOccurrences").value = letterOccurrenceText;
+}
+</script>
+
+</body>
+</html>
