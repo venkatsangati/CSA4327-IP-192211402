@@ -1,0 +1,55 @@
+
+1.<?php
+if (isset($_COOKIE['test_cookie'])) {
+    $cookieEnabled = true;
+} else {
+    $cookieEnabled = false;
+}
+
+if ($cookieEnabled) {
+    echo "Cookies are enabled.";
+} else {
+    echo "Cookies are disabled.";
+}
+?>
+
+2.<?php
+// Create the variable $states
+$states = "Mississippi, Alabama, Massachusetts, Kansas";
+
+// Task (a): Search for a word in $states that ends in 'xas'
+preg_match('/\b\w*xas\b/i', $states, $matches_a);
+$wordEndingInXas = isset($matches_a[0]) ? $matches_a[0] : "Not found";
+
+// Task (b): Search for a word that begins with 'M' and ends with 's'
+preg_match('/\bM\w*s\b/i', $states, $matches_b);
+$wordStartingWithMEndingInS = isset($matches_b[0]) ? $matches_b[0] : "Not found";
+
+// Task (c): Output the array $statesArray to the screen
+$statesArray = explode(", ", $states);
+
+// Output the results
+echo "Word ending in 'xas': $wordEndingInXas <br>";
+echo "Word starting with 'M' and ending with 's': $wordStartingWithMEndingInS <br>";
+echo "States array: <pre>";
+print_r($statesArray);
+echo "</pre>";
+?>
+
+3.<?php
+// Set cookie named "user" with value "John" and expiration after 30 days
+$cookie_name = "user";
+$cookie_value = "John";
+$expiry_time = time() + (30 * 24 * 60 * 60); // 30 days in seconds
+
+// Set the cookie
+setcookie($cookie_name, $cookie_value, $expiry_time, "/");
+
+// Check if the cookie is set and retrieve its value
+if(isset($_COOKIE[$cookie_name])) {
+    $user = $_COOKIE[$cookie_name];
+    echo "Cookie 'user' is set and its value is: $user";
+} else {
+    echo "Cookie named 'user' is not set.";
+}
+?>
