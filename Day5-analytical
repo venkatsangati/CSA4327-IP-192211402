@@ -1,0 +1,90 @@
+1.import javax.jws.WebMethod;
+import javax.jws.WebService;
+import javax.xml.ws.Endpoint;
+
+@WebService
+public class HelloWorld {
+
+    @WebMethod
+    public String sayHello(String name) {
+        return "Hello, " + name + "!";
+    }
+
+    public static void main(String[] args) {
+        // Publish the web service at http://localhost:8080/helloWorld
+        Endpoint.publish("http://localhost:8080/helloWorld", new HelloWorld());
+        System.out.println("Web service started at http://localhost:8080/helloWorld");
+    }
+}
+
+
+2.import javax.jws.WebMethod;
+import javax.jws.WebService;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Endpoint;
+import javax.xml.ws.Service;
+import java.net.URL;
+
+@WebService
+public class HelloWorld {
+
+    @WebMethod
+    public String sayHello(String name) {
+        return "Hello, " + name + "!";
+    }
+
+    public static void main(String[] args) {
+        // Publish the web service
+        Endpoint.publish("http://localhost:8080/helloWorld", new HelloWorld());
+        System.out.println("Web service started at http://localhost:8080/helloWorld");
+
+        // Client code to consume the web service
+        try {
+            // URL of the WSDL document
+            URL url = new URL("http://localhost:8080/helloWorld?wsdl");
+
+            // Qualified name of the service
+            QName qname = new QName("http://webservice.sample/", "HelloWorldService");
+
+            // Create a service instance
+            Service service = Service.create(url, qname);
+
+            // Get the proxy object for the HelloWorld interface
+            HelloWorld hello = service.getPort(HelloWorld.class);
+
+            // Call the web service method and print the response
+            System.out.println("Response from server: " + hello.sayHello("World"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+3.import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+@ManagedBean
+@SessionScoped
+public class OrderBean {
+    private int quantityCoffee1;
+    private int quantityCoffee2;
+    // Other properties and methods as needed
+
+    public int getQuantityCoffee1() {
+        return quantityCoffee1;
+    }
+
+    public void setQuantityCoffee1(int quantityCoffee1) {
+        this.quantityCoffee1 = quantityCoffee1;
+    }
+
+    public int getQuantityCoffee2() {
+        return quantityCoffee2;
+    }
+
+    public void setQuantityCoffee2(int quantityCoffee2) {
+        this.quantityCoffee2 = quantityCoffee2;
+    }
+
+    // Other getters and setters
+}
